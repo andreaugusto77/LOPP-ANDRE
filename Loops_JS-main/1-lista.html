@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Dinâmica</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        ul { padding-left: 20px; }
+        li { margin: 5px 0; cursor: pointer; }
+        li:hover { text-decoration: line-through; color: red; }
+        #mensagemErro { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Adicione itens à lista:</h1>
+    <input type="text" id="item" placeholder="Digite um item">
+    <button onclick="adicionarItem()">Adicionar</button>
+    <p id="mensagemErro"></p>
+
+    <ul id="lista"></ul>
+
+    <script>
+        let lista = JSON.parse(localStorage.getItem('lista')) || [];
+
+        function adicionarItem() {
+            const itemInput = document.getElementById('item');
+            const item = itemInput.value.trim();
+            const mensagemErro = document.getElementById('mensagemErro');
+
+            if (item) {
+                lista.push(item);
+                itemInput.value = '';
+                mensagemErro.textContent = '';
+                salvarLista();
+                exibirLista();
+            } else {
+                mensagemErro.textContent = 'Por favor, digite um item válido.';
+            }
+        }
+
+        function exibirLista() {
+            const listaUl = document.getElementById('lista');
+            listaUl.innerHTML = '';
+
+            lista.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                li.onclick = () => removerItem(index);
+                listaUl.appendChild(li);
+            });
+        }
+
+        function removerItem(index) {
+            lista.splice(index, 1);
+            salvarLista();
+            exibirLista();
+        }
+
+        function salvarLista() {
+            localStorage.setItem('lista', JSON.stringify(lista));
+        }
+
+        // Exibir a lista ao carregar a página
+        exibirLista();
+    </script>
+</body>
+</html>

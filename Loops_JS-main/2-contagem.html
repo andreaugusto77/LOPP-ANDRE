@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem de Caracteres</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #contador {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contador de Caracteres</h1>
+    <input type="text" id="texto" oninput="contarCaracteres()" maxlength="50" placeholder="Digite até 50 caracteres">
+    <span id="contador">0 caracteres</span>
+
+    <script>
+        function contarCaracteres() {
+            const texto = document.getElementById('texto').value;
+            const contador = document.getElementById('contador');
+            const totalCaracteres = texto.length;
+
+            // Atualizar o texto do contador
+            contador.textContent = `${totalCaracteres} caracteres`;
+        }
+    </script>
+</body>
+</html>
